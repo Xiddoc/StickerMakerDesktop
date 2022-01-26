@@ -2,7 +2,7 @@
 Main script / entry script.
 """
 
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton
 from qtpy import uic
 
 
@@ -10,6 +10,10 @@ class StickerMakerApp(QMainWindow):
 	"""
 	Main window and app for the GUI.
 	"""
+
+	ImageDrop: QLabel
+	SaveToFile: QPushButton
+	CopyToClipboard: QPushButton
 
 	def __init__(self) -> None:
 		# Initialize main window
