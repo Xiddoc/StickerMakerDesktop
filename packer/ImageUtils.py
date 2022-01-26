@@ -19,6 +19,12 @@ class ImageUtils:
 		"""
 
 	@staticmethod
+	def create_blank_sticker() -> None:
+		"""
+		Creates a blank sticker (transparent background), then saves it.
+		"""
+
+	@staticmethod
 	def save_to_tray(image: Image) -> None:
 		"""
 		Crops the image to 96x96 pixels, then saves it to:
