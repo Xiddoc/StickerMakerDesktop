@@ -16,15 +16,8 @@ class StickerMakerApp(QMainWindow):
 		# Initialize main window
 		super().__init__()
 
-		size_policy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-		size_policy.setHorizontalStretch(0)
-		size_policy.setVerticalStretch(0)
-		size_policy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
-		self.setSizePolicy(size_policy)
 		self.Main = QWidget(self)
 		size_policy = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
-		size_policy.setHorizontalStretch(0)
-		size_policy.setVerticalStretch(0)
 		
 		size_policy.setHeightForWidth(self.Main.sizePolicy().hasHeightForWidth())
 		self.Main.setSizePolicy(size_policy)
@@ -37,8 +30,6 @@ class StickerMakerApp(QMainWindow):
 
 		self.ImageDrop = QLabel(self.verticalLayoutWidget)
 		size_policy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-		size_policy.setHorizontalStretch(0)
-		size_policy.setVerticalStretch(0)
 		size_policy.setHeightForWidth(self.ImageDrop.sizePolicy().hasHeightForWidth())
 		self.ImageDrop.setSizePolicy(size_policy)
 		self.ImageDrop.setMinimumSize(QtCore.QSize(0, 400))
@@ -60,8 +51,6 @@ class StickerMakerApp(QMainWindow):
 
 		self.SaveToFile = QPushButton(self.verticalLayoutWidget)
 		size_policy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-		size_policy.setHorizontalStretch(0)
-		size_policy.setVerticalStretch(0)
 		size_policy.setHeightForWidth(self.SaveToFile.sizePolicy().hasHeightForWidth())
 		self.SaveToFile.setSizePolicy(size_policy)
 		font = QtGui.QFont()
@@ -73,8 +62,6 @@ class StickerMakerApp(QMainWindow):
 		self.Buttons.addWidget(self.SaveToFile)
 		self.CopyToClipboard = QPushButton(self.verticalLayoutWidget)
 		size_policy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
-		size_policy.setHorizontalStretch(0)
-		size_policy.setVerticalStretch(0)
 		size_policy.setHeightForWidth(self.CopyToClipboard.sizePolicy().hasHeightForWidth())
 		self.CopyToClipboard.setSizePolicy(size_policy)
 		font = QtGui.QFont()
@@ -87,6 +74,10 @@ class StickerMakerApp(QMainWindow):
 		self.Vertical.addLayout(self.Buttons)
 		self.setCentralWidget(self.Main)
 
+		# Create a size policy for the window
+		size_policy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+		size_policy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
+		self.setSizePolicy(size_policy)
 		# Resize the window (fixed)
 		self.resize(640, 480)
 		# Name the window
