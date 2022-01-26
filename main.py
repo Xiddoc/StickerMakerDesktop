@@ -19,6 +19,9 @@ class StickerMakerApp(QMainWindow):
 		# Initialize main window
 		super().__init__()
 
+		# Allow drops
+		self.setAcceptDrops(True)
+
 		# Load the UI from a designer file
 		uic.loadUi('stickermaker.ui', self)
 
@@ -29,32 +32,27 @@ class StickerMakerApp(QMainWindow):
 		"""
 		Fired when a file is dragged over the UI.
 		"""
-		# If the file is an image
-		if event.mimeData().hasImage():
-			# Valid
-			event.accept()
-		else:
-			# Invalid
-			event.ignore()
+		# Accept it to pass to next event
+		event.accept()
 
 	def dragMoveEvent(self, event: QDragMoveEvent) -> None:
 		"""
 		Fired when a file is moved over the UI.
 		"""
-		# If the file is an image
-		if event.mimeData().hasImage():
-			# Valid
-			event.accept()
-		else:
-			# Invalid
-			event.ignore()
+		# Accept it to pass to next event
+		event.accept()
 
 	def dropEvent(self, event: QDropEvent) -> None:
 		"""
 		Fired when a file is dropped on the UI.
 		"""
-		# If the file is an image
-		if event.mimeData().hasImage():
+		# If the dropped object is a file
+		if event.mimeData().hasUrls():
+			# Get the file path to the image
+			file_path: str = event.mimeData().urls()[0].toLocalFile()
+
+			print(file_path)
+
 			# Valid
 			event.accept()
 		else:

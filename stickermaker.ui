@@ -59,9 +59,6 @@
          <pointsize>28</pointsize>
         </font>
        </property>
-       <property name="acceptDrops">
-        <bool>true</bool>
-       </property>
        <property name="text">
         <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag-and-drop a file here&lt;/p&gt;&lt;p&gt;or paste from your Clipboard&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
