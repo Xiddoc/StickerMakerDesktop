@@ -29,16 +29,37 @@ class StickerMakerApp(QMainWindow):
 		"""
 		Fired when a file is dragged over the UI.
 		"""
+		# If the file is an image
+		if event.mimeData().hasImage():
+			# Valid
+			event.accept()
+		else:
+			# Invalid
+			event.ignore()
 
 	def dragMoveEvent(self, event: QDragMoveEvent) -> None:
 		"""
 		Fired when a file is moved over the UI.
 		"""
+		# If the file is an image
+		if event.mimeData().hasImage():
+			# Valid
+			event.accept()
+		else:
+			# Invalid
+			event.ignore()
 
 	def dropEvent(self, event: QDropEvent) -> None:
 		"""
 		Fired when a file is dropped on the UI.
 		"""
+		# If the file is an image
+		if event.mimeData().hasImage():
+			# Valid
+			event.accept()
+		else:
+			# Invalid
+			event.ignore()
 
 
 # Execute on direct run
