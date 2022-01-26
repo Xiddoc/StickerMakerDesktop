@@ -79,7 +79,7 @@ class StickerMakerApp(QMainWindow):
 		size_policy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
 		self.setSizePolicy(size_policy)
 		# Resize the window (fixed)
-		self.resize(640, 480)
+		self.setFixedSize(640, 480)
 		# Name the window
 		self.setWindowTitle("Sticker Maker [Desktop]")
 		# Show the window
