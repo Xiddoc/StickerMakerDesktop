@@ -1,9 +1,9 @@
 """
 Main script / entry script.
 """
-
-from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton
 from qtpy import uic
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton
+from PyQt5.QtGui import QDragEnterEvent, QDropEvent, QDragMoveEvent
 
 
 class StickerMakerApp(QMainWindow):
@@ -24,6 +24,21 @@ class StickerMakerApp(QMainWindow):
 
 		# Show the window
 		self.show()
+
+	def dragEnterEvent(self, event: QDragEnterEvent) -> None:
+		"""
+		Fired when a file is dragged over the UI.
+		"""
+
+	def dragMoveEvent(self, event: QDragMoveEvent) -> None:
+		"""
+		Fired when a file is moved over the UI.
+		"""
+
+	def dropEvent(self, event: QDropEvent) -> None:
+		"""
+		Fired when a file is dropped on the UI.
+		"""
 
 
 # Execute on direct run
