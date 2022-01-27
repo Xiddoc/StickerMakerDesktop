@@ -5,7 +5,7 @@ from PIL import ImageGrab
 from PIL import Image as PILImage
 from PIL.Image import Image
 
-from structures.Constants import STICKER_RES
+from structures.Constants import STICKER_RES, TRAY_RES
 
 
 class ImageUtils:
@@ -39,6 +39,11 @@ class ImageUtils:
 
 		:param image: The image to save.
 		"""
+		# Resize the image to the respective pixel size
+		# Then save to the designated location
+		image \
+			.resize(TRAY_RES, PILImage.ANTIALIAS) \
+			.save("temp/tray.png")
 
 	@staticmethod
 	def load_image_from_file(file_path: str) -> Image:
