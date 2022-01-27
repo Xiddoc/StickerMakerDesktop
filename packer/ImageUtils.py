@@ -5,6 +5,8 @@ from PIL import ImageGrab
 from PIL import Image as PILImage
 from PIL.Image import Image
 
+from structures.Constants import STICKER_RES
+
 
 class ImageUtils:
 	"""
@@ -27,7 +29,7 @@ class ImageUtils:
 		"""
 		# Make a new blank sticker
 		# Save it using our method
-		return cls.save_to_sticker(PILImage.new("RGBA", (512, 512), (0, 0, 0, 0)))
+		return cls.save_to_sticker(PILImage.new("RGBA", STICKER_RES, (0, 0, 0, 0)))
 
 	@staticmethod
 	def save_to_tray(image: Image) -> None:
