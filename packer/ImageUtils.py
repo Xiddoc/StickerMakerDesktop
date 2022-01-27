@@ -34,11 +34,19 @@ class ImageUtils:
 		"""
 
 	@staticmethod
-	def load_image(file_path: str) -> Image:
+	def load_image_from_file(file_path: str) -> Image:
 		"""
 		Wrapper for loading an image from a file path.
 
 		:param file_path: The file to load.
+		:return: An Image object instance.
+		"""
+
+	@staticmethod
+	def load_image_from_clipboard() -> Image:
+		"""
+		Wrapper for loading an image from the current Clipboard.
+
 		:return: An Image object instance.
 		"""
 
