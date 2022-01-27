@@ -1,6 +1,7 @@
 """
 Image utility functions.
 """
+from PIL import ImageGrab
 from PIL.Image import Image
 
 
@@ -49,5 +50,6 @@ class ImageUtils:
 
 		:return: An Image object instance.
 		"""
+		return ImageGrab.grabclipboard()
 
 
