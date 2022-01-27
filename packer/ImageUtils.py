@@ -2,6 +2,7 @@
 Image utility functions.
 """
 from PIL import ImageGrab
+from PIL import Image as PILImage
 from PIL.Image import Image
 
 
@@ -42,6 +43,7 @@ class ImageUtils:
 		:param file_path: The file to load.
 		:return: An Image object instance.
 		"""
+		return PILImage.open(file_path)
 
 	@staticmethod
 	def load_image_from_clipboard() -> Image:
