@@ -20,11 +20,14 @@ class ImageUtils:
 		:param image: The image to save.
 		"""
 
-	@staticmethod
-	def create_blank_sticker() -> None:
+	@classmethod
+	def create_blank_sticker(cls) -> None:
 		"""
 		Creates a blank sticker (transparent background), then saves it.
 		"""
+		# Make a new blank sticker
+		# Save it using our method
+		return cls.save_to_sticker(PILImage.new("RGBA", (512, 512), (0, 0, 0, 0)))
 
 	@staticmethod
 	def save_to_tray(image: Image) -> None:
