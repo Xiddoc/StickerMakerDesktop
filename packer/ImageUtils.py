@@ -3,12 +3,13 @@ Image utility functions.
 """
 from os.path import exists
 from time import time
+from typing import Optional
 
-from PIL import ImageGrab
+from PIL import ImageGrab, UnidentifiedImageError
 from PIL import Image as PILImage
 from PIL.Image import Image
 
-from structures.Constants import STICKER_RES, TRAY_RES
+from structures.Constants import STICKER_RES, TRAY_RES, PACK_TEMP_PATH
 
 
 class ImageUtils:
@@ -35,9 +36,18 @@ class ImageUtils:
 		"""
 		Creates a blank sticker (transparent background), then saves it.
 		"""
-		# Make a new blank sticker
+		# Make a new blank image
 		# Save it using our method
-		return cls.save_to_sticker(PILImage.new("RGBA", STICKER_RES, (0, 0, 0, 0)))
+		return cls.save_to_sticker(cls.__create_blank_image())
+
+	@classmethod
+	def create_blank_tray(cls) -> None:
+		"""
+		Creates a blank image (transparent background), then saves it as the tray icon.
+		"""
+		# Make a new blank image
+		# Save it using our method
+		return cls.save_to_tray(cls.__create_blank_image())
 
 	@staticmethod
 	def save_to_tray(image: Image) -> None:
@@ -51,34 +61,47 @@ class ImageUtils:
 		# Then save to the designated location
 		image \
 			.resize(TRAY_RES, PILImage.ANTIALIAS) \
-			.save("temp/tray.png")
+			.save(f"{PACK_TEMP_PATH}/tray.png")
 
 	@staticmethod
-	def load_image_from_file(file_path: str) -> Image:
+	def load_image_from_file(file_path: str) -> Optional[Image]:
 		"""
 		Wrapper for loading an image from a file path.
 
 		:param file_path: The file to load.
-		:return: An Image object instance.
+		:return: An Image object instance **IF THE FILE IS AN IMAGE**, otherwise None.
 		"""
-		return PILImage.open(file_path)
+		try:
+			return PILImage.open(file_path)
+		except UnidentifiedImageError:
+			return None
 
 	@staticmethod
-	def load_image_from_clipboard() -> Image:
+	def load_image_from_clipboard() -> Optional[Image]:
 		"""
 		Wrapper for loading an image from the current Clipboard.
 
-		:return: An Image object instance.
+		:return: An Image object instance **IF THERE IS AN IMAGE ON THE CLIPBOARD**, otherwise None.
 		"""
 		return ImageGrab.grabclipboard()
 
 	@classmethod
-	def __get_random_file_name(cls):
+	def __get_random_file_name(cls) -> str:
 		"""
 		Creates a random image name that does not exist.
 		"""
 		# Generate random file name
-		file_name: str = f"temp/{str(time()).replace('.', '')}.png"
+		file_name: str = f"{PACK_TEMP_PATH}/{str(time()).replace('.', '')}.webp"
 		# If file exists, recurse to try again
 		if exists(file_name):
 			return cls.__get_random_file_name()
+		else:
+			# Otherwise, return ours
+			return file_name
+
+	@classmethod
+	def __create_blank_image(cls) -> Image:
+		"""
+		Creates a transparent blank image in the size of a sticker.
+		"""
+		return PILImage.new("RGBA", STICKER_RES, (0, 0, 0, 0))
