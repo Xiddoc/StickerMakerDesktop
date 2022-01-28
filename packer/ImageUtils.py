@@ -95,6 +95,9 @@ class ImageUtils:
 		# If file exists, recurse to try again
 		if exists(file_name):
 			return cls.__get_random_file_name()
+		else:
+			# Otherwise, return ours
+			return file_name
 
 	@classmethod
 	def __create_blank_image(cls) -> Image:

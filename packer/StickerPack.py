@@ -147,3 +147,6 @@ class StickerPack:
 		# If the file exists, recurse to try again
 		if exists(file_name):
 			return cls.__get_zip_path()
+		else:
+			# Otherwise, return ours
+			return file_name
