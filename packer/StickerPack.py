@@ -1,10 +1,11 @@
 """
 Sticker Pack class.
 """
-from os import mkdir
+from os import mkdir, listdir
 from shutil import rmtree
 
 from typing import List
+from zipfile import ZipFile
 
 from PIL.Image import Image
 
@@ -38,10 +39,17 @@ class StickerPack:
 			# If it already exists, then ignore
 			pass
 
-	def compress_pack(self, file_path: str) -> None:
+	@staticmethod
+	def save_pack(file_path: str) -> None:
 		"""
 		Compresses the 'temp' directory to a zip file,
 		then saves it to the specified location.
 
 		:param file_path: The save path.
 		"""
+		# Make a new zip file
+		with ZipFile(file_path, "w") as f:
+			# For each file in the pack
+			for file in listdir(TEMP_LOCATION):
+				# Add it to the zip
+				f.write(f"{TEMP_LOCATION}/{file}")
