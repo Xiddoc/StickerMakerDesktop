@@ -74,6 +74,17 @@ class StickerPack:
 			# Save sticker
 			ImageUtils.save_to_sticker(image)
 
+		# If we are in a lack of images (at least 3 stickers in a sticker pack)
+		# I use the following expression to figure out how many times to loop: max(3 - STICKER_COUNT, 0)
+		# This means that if we have less than 3
+		# stickers, then it should loop enough
+		# times to have saved a total of 3 stickers.
+		# However, if there are more than 3 stickers,
+		# then it will loop 0 times (add no blank stickers).
+		for i in range(max(3 - len(self.__images), 0)):
+			# Add blank stickers
+			ImageUtils.create_blank_sticker()
+
 		# Make a new zip file
 		with ZipFile(file_path, "w") as f:
 			# For each file in the pack
