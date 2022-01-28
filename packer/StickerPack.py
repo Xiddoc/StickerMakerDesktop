@@ -19,6 +19,7 @@ class StickerPack:
 	"""
 
 	__images: List[Image]
+	__tray: Optional[Image]
 	__title: str
 	__author: str
 
@@ -33,6 +34,8 @@ class StickerPack:
 		"""
 		# Clear out the image list
 		self.__images = []
+		# Set blank tray icon
+		self.__tray = None
 		# Default metadata
 		self.update_metadata("_", "_")
 		# Update the file system and folders
