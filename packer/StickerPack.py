@@ -17,7 +17,9 @@ class StickerPack:
 	Class to help organize and set up the sticker pack.
 	"""
 
-	images: List[Image]
+	__images: List[Image]
+	__title: str
+	__author: str
 
 	def __init__(self) -> None:
 		# Initiate the pack for the first time
@@ -29,7 +31,10 @@ class StickerPack:
 		or cleans out the directory if it is full of old files.
 		"""
 		# Clear out the image list
-		self.images = []
+		self.__images = []
+		# Default metadata
+		self.update_metadata("_", "_")
+		# Update the file system and folders
 		try:
 			# Remove the temp directory
 			rmtree(PACK_TEMP_PATH, ignore_errors=True)
@@ -68,7 +73,6 @@ class StickerPack:
 		# Simple write operation
 		with open(file_name, "w") as f:
 			f.write(data)
-
 
 	@staticmethod
 	def save_pack(file_path: str) -> None:
