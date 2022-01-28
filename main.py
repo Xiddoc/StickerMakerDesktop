@@ -80,10 +80,22 @@ class StickerMakerApp(QMainWindow):
 			# Get the file path to the image
 			file_path: str = event.mimeData().urls()[0].toLocalFile()
 
-			print(file_path)
+			# Load the image
+			image_file: Optional[Image] = ImageUtils.load_image_from_file(file_path)
 
-			# Valid
-			event.accept()
+			# If the image was loaded
+			if image_file is not None:
+				# Add image to pack
+				self.__pack.add_sticker_to_pack(image_file)
+
+				# Update UI
+				self.update_pack_count()
+
+				# Valid
+				event.accept()
+			else:
+				# Invalid
+				event.ignore()
 		else:
 			# Invalid
 			event.ignore()
@@ -106,7 +118,13 @@ class StickerMakerApp(QMainWindow):
 		# Otherwise, add the sticker to the pack
 		log.info("User pasted an image to the window")
 		self.__pack.add_sticker_to_pack(image)
-		# Update the UI
+		# Update UI
+		self.update_pack_count()
+
+	def update_pack_count(self) -> None:
+		"""
+		Simple method to update the text with the new sticker pack size.
+		"""
 		self.ImageDrop.setText('<html><head/><body>'
 		                       f'<p>{self.__pack.get_pack_size()} stickers added.</p>'
 		                       '<p>Want to add more?</p>'
