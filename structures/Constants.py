@@ -11,3 +11,7 @@ TRAY_RES = (96, 96)
 
 # Pack location
 TEMP_LOCATION = "temp"
+
+# Metadata
+PACK_TITLE_FILE = "title.txt"
+PACK_AUTHOR_FILE = "author.txt"

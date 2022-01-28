@@ -4,12 +4,12 @@ Sticker Pack class.
 from os import mkdir, listdir
 from shutil import rmtree
 
-from typing import List
+from typing import List, Optional
 from zipfile import ZipFile
 
 from PIL.Image import Image
 
-from structures.Constants import TEMP_LOCATION
+from structures.Constants import TEMP_LOCATION, PACK_TITLE_FILE, PACK_AUTHOR_FILE
 
 
 class StickerPack:
@@ -38,6 +38,37 @@ class StickerPack:
 		except FileExistsError:
 			# If it already exists, then ignore
 			pass
+
+	def update_metadata(self, pack_title: Optional[str] = None, pack_author: Optional[str] = None) -> None:
+		"""
+		Updates the metadata files within the sticker pack.
+
+		:param pack_title: The sticker pack title.
+		:param pack_author: The sticker pack author.
+		"""
+		# If param was passed
+		if pack_title is not None:
+			# Write to pack title
+			self.__write_data(f"{TEMP_LOCATION}/{PACK_TITLE_FILE}", pack_title)
+
+		# If param was passed
+		if pack_author is not None:
+			# Write to pack title
+			self.__write_data(f"{TEMP_LOCATION}/{PACK_AUTHOR_FILE}", pack_author)
+
+	@staticmethod
+	def __write_data(file_name: str, data: str) -> None:
+		"""
+		Wrapper function for writing data to a file.
+		Overwrites the file and closes the stream before returning.
+
+		:param file_name: The file to write to.
+		:param data: The data to write to the file.
+		"""
+		# Simple write operation
+		with open(file_name, "w") as f:
+			f.write(data)
+
 
 	@staticmethod
 	def save_pack(file_path: str) -> None:
