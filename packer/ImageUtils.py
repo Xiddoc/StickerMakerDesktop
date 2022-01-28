@@ -5,7 +5,7 @@ from os.path import exists
 from time import time
 from typing import Optional
 
-from PIL import ImageGrab
+from PIL import ImageGrab, UnidentifiedImageError
 from PIL import Image as PILImage
 from PIL.Image import Image
 
@@ -64,14 +64,17 @@ class ImageUtils:
 			.save(f"{PACK_TEMP_PATH}/tray.png")
 
 	@staticmethod
-	def load_image_from_file(file_path: str) -> Image:
+	def load_image_from_file(file_path: str) -> Optional[Image]:
 		"""
 		Wrapper for loading an image from a file path.
 
 		:param file_path: The file to load.
-		:return: An Image object instance.
+		:return: An Image object instance **IF THE FILE IS AN IMAGE**, otherwise None.
 		"""
-		return PILImage.open(file_path)
+		try:
+			return PILImage.open(file_path)
+		except UnidentifiedImageError:
+			return None
 
 	@staticmethod
 	def load_image_from_clipboard() -> Optional[Image]:
