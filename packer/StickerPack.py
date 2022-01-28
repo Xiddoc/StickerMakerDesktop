@@ -73,7 +73,11 @@ class StickerPack:
 
 		:param image: The image to add.
 		"""
+		# Add the image to the sticke pack
 		self.__images.append(image)
+		# Also, if there is no tray icon, then set this one as it
+		if self.__tray is None:
+			self.__tray = image
 
 	def save_pack(self, file_path: str) -> None:
 		"""
