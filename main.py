@@ -22,6 +22,7 @@ class StickerMakerApp(QMainWindow):
 	SaveToFile: QPushButton
 	CopyToClipboard: QPushButton
 	PasteShortcut: QShortcut
+	QuitShortcut: QShortcut
 
 	__pack: StickerPack
 
@@ -41,9 +42,15 @@ class StickerMakerApp(QMainWindow):
 		uic.loadUi('stickermaker.ui', self)
 
 		# Initiate shortcut
-		log.info("Initializing shortcut")
+		log.info("Initializing pasting shortcut")
 		self.PasteShortcut = QShortcut(QKeySequence("Ctrl+V"), self)
 		self.PasteShortcut.activated.connect(lambda: self.load_image(ImageUtils.load_image_from_clipboard()))
+
+		# Initiate shortcut
+		log.info("Initializing quitting shortcut")
+		self.QuitShortcut = QShortcut(QKeySequence("Ctrl+W"), self)
+		# noinspection PyTypeChecker
+		self.QuitShortcut.activated.connect(self.close)
 
 		# Show the window
 		log.info("Displaying window")
