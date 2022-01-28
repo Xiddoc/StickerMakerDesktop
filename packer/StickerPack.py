@@ -6,10 +6,12 @@ from os.path import exists
 from pathlib import Path
 from shutil import rmtree
 from time import time
-
 from typing import List, Optional
 from zipfile import ZipFile
+
 from PIL.Image import Image
+from PyQt5.QtCore import QUrl, QMimeData
+from PyQt5.QtWidgets import QApplication
 
 from packer.ImageUtils import ImageUtils
 from structures.Constants import PACK_TEMP_PATH, PACK_TITLE_FILE, PACK_AUTHOR_FILE, DEFAULT_TITLE, DEFAULT_AUTHOR
@@ -24,11 +26,14 @@ class StickerPack:
 	__tray: Optional[Image]
 	__title: str
 	__author: str
+	__app: QApplication
 
-	def __init__(self) -> None:
+	def __init__(self, app: QApplication) -> None:
 		# Grab instance of self.logger to prevent cyclical import
 		from main import log
 		self.log = log
+		# Set app to field
+		self.__app = app
 		# Initiate the pack for the first time
 		self.init_pack()
 
@@ -79,7 +84,23 @@ class StickerPack:
 			self.log.info("Set tray image of pack")
 			self.__tray = image
 
-	def save_pack_to_desktop(self) -> None:
+	def save_pack_to_clipboard(self) -> None:
+		"""
+		Compresses the 'temp' directory to a zip file,
+		then copies it to the Clipboard.
+		"""
+
+		# save to temp, save to desktop moves to desktop
+
+		# Make new data struct
+		data = QMimeData()
+		# Create the pack, then add the file path to the structure
+		data.setUrls([QUrl.fromLocalFile(self.save_pack_to_desktop())])
+
+		# Set the data to the Clipboard (Import locally to avoid import error)
+		self.__app.clipboard().setMimeData(data)
+
+	def save_pack_to_desktop(self) -> str:
 		"""
 		Compresses the 'temp' directory to a zip file,
 		then saves it to the Desktop.
@@ -114,13 +135,17 @@ class StickerPack:
 			ImageUtils.save_to_tray(self.__tray)
 
 		# Make a new zip file on the desktop
-		with ZipFile(self.__get_zip_path(), "w") as f:
+		zip_path: str = self.__get_zip_path()
+		with ZipFile(zip_path, "w") as f:
 			# For each file in the pack
 			for file in listdir(PACK_TEMP_PATH):
 				# Add it to the zip
 				file_path = f"{PACK_TEMP_PATH}/{file}"
 				self.log.info(f"Added file '{file_path}' to pack")
 				f.write(file_path, file)
+
+		# Return the path
+		return zip_path
 
 	@staticmethod
 	def __write_data(file_name: str, data: str) -> None:

@@ -31,13 +31,13 @@ class StickerMakerApp(QMainWindow):
 
 	__pack: StickerPack
 
-	def __init__(self) -> None:
+	def __init__(self, app_instance: QApplication) -> None:
 		# Initialize main window
 		super().__init__()
 
 		# Make sticker pack field
 		log.info("Initializing sticker pack")
-		self.__pack = StickerPack()
+		self.__pack = StickerPack(app_instance)
 
 		# Allow drops
 		self.setAcceptDrops(True)
@@ -58,7 +58,9 @@ class StickerMakerApp(QMainWindow):
 		self.QuitShortcut.activated.connect(self.close)
 
 		# Declare button click callback
+		# noinspection PyTypeChecker
 		self.SaveToFile.clicked.connect(self.__pack.save_pack_to_desktop)
+		self.CopyToClipboard.clicked.connect(self.__pack.save_pack_to_clipboard)
 
 		# Show the window
 		log.info("Displaying window")
@@ -143,10 +145,9 @@ class StickerMakerApp(QMainWindow):
 		log.info("Updated UI with new pack size")
 
 		# Create informational message
-		info_msg = \
-			'<span style="font-size: 18pt; color:#AA0000"><b>Not an image.</b></span>' \
-				if error else \
-				'<span style="font-size: 18pt; color:#00AA00"><b>Image added successfully!</b></span>'
+		info_msg = '<span style="font-size: 18pt; color:#AA0000"><b>Not an image.</b></span>' \
+			if error else \
+			'<span style="font-size: 18pt; color:#00AA00"><b>Image added successfully!</b></span>'
 
 		# Update the UI text
 		self.ImageDrop.setText(
@@ -166,7 +167,7 @@ if __name__ == "__main__":
 
 	# Make a new window
 	log.info("Initializing application")
-	ui = StickerMakerApp()
+	ui = StickerMakerApp(app)
 
 	# Execute the app
 	log.info("Executing application using frame")
