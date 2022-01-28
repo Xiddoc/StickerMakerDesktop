@@ -53,7 +53,7 @@ class StickerMakerApp(QMainWindow):
 		self.QuitShortcut.activated.connect(self.close)
 
 		# Declare button click callback
-		self.SaveToFile.clicked.connect(self.__pack.save_pack)
+		self.SaveToFile.clicked.connect(self.__pack.save_pack_to_desktop)
 
 		# Show the window
 		log.info("Displaying window")

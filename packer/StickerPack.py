@@ -2,6 +2,7 @@
 Sticker Pack class.
 """
 from os import mkdir, listdir
+from pathlib import Path
 from shutil import rmtree
 
 from typing import List, Optional
@@ -69,12 +70,10 @@ class StickerPack:
 		if self.__tray is None:
 			self.__tray = image
 
-	def save_pack(self, file_path: str) -> None:
+	def save_pack_to_desktop(self) -> None:
 		"""
 		Compresses the 'temp' directory to a zip file,
-		then saves it to the specified location.
-
-		:param file_path: The save path.
+		then saves it to the Desktop.
 		"""
 		# Start by writing each image to the directory
 		for image in self.__images:
@@ -101,8 +100,8 @@ class StickerPack:
 			# Save the current one as our tray
 			ImageUtils.save_to_tray(self.__tray)
 
-		# Make a new zip file
-		with ZipFile(file_path, "w") as f:
+		# Make a new zip file on the desktop
+		with ZipFile(str(Path.home() / 'Desktop'), "w") as f:
 			# For each file in the pack
 			for file in listdir(PACK_TEMP_PATH):
 				# Add it to the zip
