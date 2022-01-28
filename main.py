@@ -93,13 +93,17 @@ class StickerMakerApp(QMainWindow):
 		"""
 		# Simply ignore if there is no picture to load
 		if image is None:
+			log.info("User pasted text to the window")
 			return
+
 		# Otherwise, add the sticker to the pack
+		log.info("User pasted an image to the window")
 		self.__pack.add_sticker_to_pack(image)
 		# Update the UI
-		self.ImageDrop.setTextFormat("&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag-and-drop a file "
-		                             "here&lt;/p&gt;&lt;p&gt;or paste from your "
-		                             "Clipboarda&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;")
+		self.ImageDrop.setText('<html><head/><body>'
+		                       '<p>Drag-and-drop a file here</p>'
+		                       '<p>or paste from your Clipboard</p>'
+		                       '</body></html>')
 
 
 # Execute on direct run
