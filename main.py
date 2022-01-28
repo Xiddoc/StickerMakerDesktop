@@ -1,11 +1,13 @@
 """
 Main script / entry script.
 """
+from PIL.Image import Image
 from qtpy import uic
-from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton
-from PyQt5.QtGui import QDragEnterEvent, QDropEvent, QDragMoveEvent
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QShortcut
+from PyQt5.QtGui import QDragEnterEvent, QDropEvent, QDragMoveEvent, QKeySequence
 
 
+# noinspection PyUnusedFunction
 class StickerMakerApp(QMainWindow):
 	"""
 	Main window and app for the GUI.
@@ -14,6 +16,7 @@ class StickerMakerApp(QMainWindow):
 	ImageDrop: QLabel
 	SaveToFile: QPushButton
 	CopyToClipboard: QPushButton
+	PasteShortcut: QShortcut
 
 	def __init__(self) -> None:
 		# Initialize main window
@@ -24,6 +27,10 @@ class StickerMakerApp(QMainWindow):
 
 		# Load the UI from a designer file
 		uic.loadUi('stickermaker.ui', self)
+
+		# Initiate shortcut
+		self.PasteShortcut = QShortcut(QKeySequence("Ctrl+V"), self)
+		self.PasteShortcut.activated.connect(lambda: self.load_image())
 
 		# Show the window
 		self.show()
@@ -58,6 +65,14 @@ class StickerMakerApp(QMainWindow):
 		else:
 			# Invalid
 			event.ignore()
+
+	def load_image(self, image: Image) -> None:
+		"""
+		Loads an image into the packer.
+		Then, it updates the UI.
+
+		:param image: The image to add to the sticker pack.
+		"""
 
 
 # Execute on direct run
