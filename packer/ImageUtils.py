@@ -1,6 +1,9 @@
 """
 Image utility functions.
 """
+from os.path import exists
+from time import time
+
 from PIL import ImageGrab
 from PIL import Image as PILImage
 from PIL.Image import Image
@@ -13,14 +16,19 @@ class ImageUtils:
 	Static functions for image utilities.
 	"""
 
-	@staticmethod
-	def save_to_sticker(image: Image) -> None:
+	@classmethod
+	def save_to_sticker(cls, image: Image) -> None:
 		"""
 		Crops the image to 512x512 pixels, then saves it to:
 		temp/[RANDOM_INTEGER].webp
 
 		:param image: The image to save.
 		"""
+		# Resize the image to the respective pixel size
+		# Then save to the designated location
+		image \
+			.resize(STICKER_RES, PILImage.ANTIALIAS) \
+			.save(cls.__get_random_file_name())
 
 	@classmethod
 	def create_blank_sticker(cls) -> None:
@@ -64,4 +72,14 @@ class ImageUtils:
 		"""
 		return ImageGrab.grabclipboard()
 
+	@classmethod
+	def __get_random_file_name(cls):
+		"""
+		Creates a random image name that does not exist.
+		"""
+		# Generate random file name
+		file_name: str = f"temp/{str(time()).replace('.', '')}.png"
+		# If file exists, recurse to try again
+		if exists(file_name):
+			return cls.__get_random_file_name()
 
