@@ -36,9 +36,18 @@ class ImageUtils:
 		"""
 		Creates a blank sticker (transparent background), then saves it.
 		"""
-		# Make a new blank sticker
+		# Make a new blank image
 		# Save it using our method
-		return cls.save_to_sticker(PILImage.new("RGBA", STICKER_RES, (0, 0, 0, 0)))
+		return cls.save_to_sticker(cls.__create_blank_image())
+
+	@classmethod
+	def create_blank_tray(cls) -> None:
+		"""
+		Creates a blank image (transparent background), then saves it as the tray icon.
+		"""
+		# Make a new blank image
+		# Save it using our method
+		return cls.save_to_tray(cls.__create_blank_image())
 
 	@staticmethod
 	def save_to_tray(image: Image) -> None:
@@ -83,3 +92,10 @@ class ImageUtils:
 		# If file exists, recurse to try again
 		if exists(file_name):
 			return cls.__get_random_file_name()
+
+	@classmethod
+	def __create_blank_image(cls) -> Image:
+		"""
+		Creates a transparent blank image in the size of a sticker.
+		"""
+		return PILImage.new("RGBA", STICKER_RES, (0, 0, 0, 0))
