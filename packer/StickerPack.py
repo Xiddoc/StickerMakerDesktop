@@ -62,6 +62,16 @@ class StickerPack:
 			# Write to pack title
 			self.__write_data(f"{PACK_TEMP_PATH}/{PACK_AUTHOR_FILE}", pack_author)
 
+	def add_sticker_to_pack(self, image: Image) -> None:
+		"""
+		Adds an image to the current sticker pack.
+		This is done lazily (so the GUI does not lag), there
+		is no file save until we save the entire sticker pack.
+
+		:param image: The image to add.
+		"""
+		self.__images.append(image)
+
 	def save_pack(self, file_path: str) -> None:
 		"""
 		Compresses the 'temp' directory to a zip file,
