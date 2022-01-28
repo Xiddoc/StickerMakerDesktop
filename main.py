@@ -1,6 +1,7 @@
 """
 Main script / entry script.
 """
+import logging
 from typing import Optional
 
 from packer.StickerPack import StickerPack
@@ -29,19 +30,23 @@ class StickerMakerApp(QMainWindow):
 		super().__init__()
 
 		# Make sticker pack field
+		log.info("Initializing sticker pack")
 		self.__pack = StickerPack()
 
 		# Allow drops
 		self.setAcceptDrops(True)
 
 		# Load the UI from a designer file
+		log.info("Loading UI")
 		uic.loadUi('stickermaker.ui', self)
 
 		# Initiate shortcut
+		log.info("Initializing shortcut")
 		self.PasteShortcut = QShortcut(QKeySequence("Ctrl+V"), self)
 		self.PasteShortcut.activated.connect(lambda: self.load_image(ImageUtils.load_image_from_clipboard()))
 
 		# Show the window
+		log.info("Displaying window")
 		self.show()
 
 	def dragEnterEvent(self, event: QDragEnterEvent) -> None:
@@ -63,6 +68,7 @@ class StickerMakerApp(QMainWindow):
 		Fired when a file is dropped on the UI.
 		"""
 		# If the dropped object is a file
+		log.info("File dropped on window")
 		if event.mimeData().hasUrls():
 			# Get the file path to the image
 			file_path: str = event.mimeData().urls()[0].toLocalFile()
@@ -98,11 +104,19 @@ class StickerMakerApp(QMainWindow):
 
 # Execute on direct run
 if __name__ == "__main__":
+	# Set logger settings
+	logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
+	# Make logger
+	log = logging.getLogger("Logger")
+
 	# Initialize app frame (required for Qt)
+	log.info("Creating application frame")
 	app = QApplication([])
 
 	# Make a new window
+	log.info("Initializing application")
 	ui = StickerMakerApp()
 
 	# Execute the app
+	log.info("Executing application using frame")
 	app.exec_()
