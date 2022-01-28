@@ -62,19 +62,6 @@ class StickerPack:
 			self.__write_data(f"{PACK_TEMP_PATH}/{PACK_AUTHOR_FILE}", pack_author)
 
 	@staticmethod
-	def __write_data(file_name: str, data: str) -> None:
-		"""
-		Wrapper function for writing data to a file.
-		Overwrites the file and closes the stream before returning.
-
-		:param file_name: The file to write to.
-		:param data: The data to write to the file.
-		"""
-		# Simple write operation
-		with open(file_name, "w") as f:
-			f.write(data)
-
-	@staticmethod
 	def save_pack(file_path: str) -> None:
 		"""
 		Compresses the 'temp' directory to a zip file,
@@ -88,3 +75,16 @@ class StickerPack:
 			for file in listdir(PACK_TEMP_PATH):
 				# Add it to the zip
 				f.write(f"{PACK_TEMP_PATH}/{file}")
+
+	@staticmethod
+	def __write_data(file_name: str, data: str) -> None:
+		"""
+		Wrapper function for writing data to a file.
+		Overwrites the file and closes the stream before returning.
+
+		:param file_name: The file to write to.
+		:param data: The data to write to the file.
+		"""
+		# Simple write operation
+		with open(file_name, "w") as f:
+			f.write(data)
