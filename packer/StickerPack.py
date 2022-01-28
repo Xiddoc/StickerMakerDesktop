@@ -119,8 +119,9 @@ class StickerPack:
 			file_path: str
 			for file in listdir(PACK_TEMP_PATH):
 				# Add it to the zip
-				self.log.info(f"Added file '{file}' to pack")
-				f.write(file)
+				file_path = f"{PACK_TEMP_PATH}/{file}"
+				self.log.info(f"Added file '{file_path}' to pack")
+				f.write(file_path)
 
 	@staticmethod
 	def __write_data(file_name: str, data: str) -> None:
