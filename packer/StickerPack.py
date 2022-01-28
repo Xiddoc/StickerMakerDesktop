@@ -4,7 +4,8 @@ Sticker Pack class.
 from os import mkdir, listdir
 from os.path import exists
 from pathlib import Path
-from shutil import rmtree
+from shutil import rmtree, move
+from tempfile import gettempdir
 from time import time
 from typing import List, Optional
 from zipfile import ZipFile
@@ -89,21 +90,28 @@ class StickerPack:
 		Compresses the 'temp' directory to a zip file,
 		then copies it to the Clipboard.
 		"""
-
-		# save to temp, save to desktop moves to desktop
-
 		# Make new data struct
 		data = QMimeData()
 		# Create the pack, then add the file path to the structure
-		data.setUrls([QUrl.fromLocalFile(self.save_pack_to_desktop())])
+		data.setUrls([QUrl.fromLocalFile(self.save_pack_to_temp())])
 
 		# Set the data to the Clipboard (Import locally to avoid import error)
 		self.__app.clipboard().setMimeData(data)
 
-	def save_pack_to_desktop(self) -> str:
+	def save_pack_to_desktop(self) -> None:
 		"""
 		Compresses the 'temp' directory to a zip file,
 		then saves it to the Desktop.
+		"""
+		# Save the file
+		file_path = self.save_pack_to_temp()
+		# Move the file to the desktop
+		move(file_path, f"{Path.home() / 'Desktop'}/{file_path.split('/')[-1]}")
+
+	def save_pack_to_temp(self) -> str:
+		"""
+		Compresses the 'temp' directory to a zip file,
+		then saves it to a temporary folder.
 		"""
 		# Start by writing each image to the directory
 		for image in self.__images:
@@ -169,7 +177,7 @@ class StickerPack:
 		# On the desktop
 		# Generate a random file name
 		# With the file extension .wastickers
-		file_name: str = f"{Path.home() / 'Desktop'}/{str(time()).replace('.', '')}.wastickers"
+		file_name: str = f"{gettempdir()}/{str(time()).replace('.', '')}.wastickers"
 		# If the file exists, recurse to try again
 		if exists(file_name):
 			return cls.__get_zip_path()
