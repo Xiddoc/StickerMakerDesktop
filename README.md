@@ -4,7 +4,14 @@ A desktop sticker maker for... a specific chatting app! Legality of specifying t
 
 ## Installation
 
-Clone the repo, then double click / run `main.py`. Watch as the magic happens!
+Clone the repo, then in a Command Prompt run:
+```cmd
+python -m pip install -r requirements.txt
+```
+After that, run `main.py`. Watch as the magic happens!
+```cmd
+python main.py
+```
 
 ## Usage
 
