@@ -3,11 +3,12 @@ Main script / entry script.
 """
 from typing import Optional
 
+from packer.StickerPack import StickerPack
+from packer.ImageUtils import ImageUtils
 from PIL.Image import Image
 from qtpy import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QShortcut
 from PyQt5.QtGui import QDragEnterEvent, QDropEvent, QDragMoveEvent, QKeySequence
-from packer.ImageUtils import ImageUtils
 
 
 # noinspection PyUnusedFunction
@@ -21,9 +22,14 @@ class StickerMakerApp(QMainWindow):
 	CopyToClipboard: QPushButton
 	PasteShortcut: QShortcut
 
+	__pack: StickerPack
+
 	def __init__(self) -> None:
 		# Initialize main window
 		super().__init__()
+
+		# Make sticker pack field
+		self.__pack = StickerPack()
 
 		# Allow drops
 		self.setAcceptDrops(True)
@@ -82,8 +88,12 @@ class StickerMakerApp(QMainWindow):
 		# Simply ignore if there is no picture to load
 		if image is None:
 			return
-		# Otherwise,
-		image.show()
+		# Otherwise, add the sticker to the pack
+		self.__pack.add_sticker_to_pack(image)
+		# Update the UI
+		self.ImageDrop.setTextFormat("&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag-and-drop a file "
+		                             "here&lt;/p&gt;&lt;p&gt;or paste from your "
+		                             "Clipboarda&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;")
 
 
 # Execute on direct run
