@@ -85,15 +85,22 @@ class StickerMakerApp(QMainWindow):
 
 			# If the image was loaded
 			if image_file is not None:
+				log.info("Dropped file was an image")
+
 				# Add image to pack
 				self.__pack.add_sticker_to_pack(image_file)
 
 				# Update UI
-				self.update_pack_count()
+				self.update_UI()
 
 				# Valid
 				event.accept()
 			else:
+				log.info("Dropped file was not an image")
+
+				# Update UI
+				self.update_UI(error=True)
+
 				# Invalid
 				event.ignore()
 		else:
@@ -119,16 +126,28 @@ class StickerMakerApp(QMainWindow):
 		log.info("User pasted an image to the window")
 		self.__pack.add_sticker_to_pack(image)
 		# Update UI
-		self.update_pack_count()
+		self.update_UI()
 
-	def update_pack_count(self) -> None:
+	def update_UI(self, error: bool = False) -> None:
 		"""
 		Simple method to update the text with the new sticker pack size.
 		"""
-		self.ImageDrop.setText('<html><head/><body>'
-		                       f'<p>{self.__pack.get_pack_size()} stickers added.</p>'
-		                       '<p>Want to add more?</p>'
-		                       '</body></html>')
+		log.info("Updated UI with new pack size")
+
+		# Create informational message
+		info_msg = \
+			'<span style="font-size: 18pt; color:#AA0000"><b>Not an image.</b></span>' \
+			if error else \
+			'<span style="font-size: 18pt; color:#00AA00"><b>Image added successfully!</b></span>'
+
+		# Update the UI text
+		self.ImageDrop.setText(
+			'<html><head/><body>'
+			f'<p>{self.__pack.get_pack_size()} stickers added.</p>'
+			'<p>Want to add more?</p>'
+			f'{info_msg}'
+			'</body></html>'
+		)
 
 
 # Execute on direct run
