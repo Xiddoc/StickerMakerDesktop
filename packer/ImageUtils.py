@@ -91,7 +91,7 @@ class ImageUtils:
 		Creates a random image name that does not exist.
 		"""
 		# Generate random file name
-		file_name: str = f"{PACK_TEMP_PATH}/{str(time()).replace('.', '')}.png"
+		file_name: str = f"{PACK_TEMP_PATH}/{str(time()).replace('.', '')}.webp"
 		# If file exists, recurse to try again
 		if exists(file_name):
 			return cls.__get_random_file_name()
