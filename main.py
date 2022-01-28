@@ -1,6 +1,8 @@
 """
 Main script / entry script.
 """
+from typing import Optional
+
 from PIL.Image import Image
 from qtpy import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QShortcut
@@ -67,13 +69,20 @@ class StickerMakerApp(QMainWindow):
 			# Invalid
 			event.ignore()
 
-	def load_image(self, image: Image) -> None:
+	def load_image(self, image: Optional[Image]) -> None:
 		"""
 		Loads an image into the packer.
 		Then, it updates the UI.
 
+		This method accounts for the possibility that the image is None, and simply ignores.
+		(For simplicity with the ImageUtils.load_image_from_clipboard() method)
+
 		:param image: The image to add to the sticker pack.
 		"""
+		# Simply ignore if there is no picture to load
+		if image is None:
+			return
+		# Otherwise,
 		image.show()
 
 

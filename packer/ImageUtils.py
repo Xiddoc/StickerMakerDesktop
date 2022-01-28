@@ -74,7 +74,7 @@ class ImageUtils:
 		return ImageGrab.grabclipboard()
 
 	@classmethod
-	def __get_random_file_name(cls):
+	def __get_random_file_name(cls) -> str:
 		"""
 		Creates a random image name that does not exist.
 		"""
