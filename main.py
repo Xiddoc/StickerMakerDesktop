@@ -11,6 +11,11 @@ from qtpy import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QShortcut
 from PyQt5.QtGui import QDragEnterEvent, QDropEvent, QDragMoveEvent, QKeySequence
 
+# Set logger settings
+logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
+# Make logger
+log = logging.getLogger("Logger")
+
 
 # noinspection PyUnusedFunction
 class StickerMakerApp(QMainWindow):
@@ -140,8 +145,8 @@ class StickerMakerApp(QMainWindow):
 		# Create informational message
 		info_msg = \
 			'<span style="font-size: 18pt; color:#AA0000"><b>Not an image.</b></span>' \
-			if error else \
-			'<span style="font-size: 18pt; color:#00AA00"><b>Image added successfully!</b></span>'
+				if error else \
+				'<span style="font-size: 18pt; color:#00AA00"><b>Image added successfully!</b></span>'
 
 		# Update the UI text
 		self.ImageDrop.setText(
@@ -155,11 +160,6 @@ class StickerMakerApp(QMainWindow):
 
 # Execute on direct run
 if __name__ == "__main__":
-	# Set logger settings
-	logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
-	# Make logger
-	log = logging.getLogger("Logger")
-
 	# Initialize app frame (required for Qt)
 	log.info("Creating application frame")
 	app = QApplication([])
