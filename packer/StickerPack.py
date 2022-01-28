@@ -27,6 +27,12 @@ class StickerPack:
 		# Initiate the pack for the first time
 		self.init_pack()
 
+	def get_pack_size(self) -> int:
+		"""
+		Returns the size of the pack (the amount of stickers added).
+		"""
+		return len(self.__images)
+
 	def init_pack(self) -> None:
 		"""
 		Creates a new 'temp' directory if it doesn't exist,
@@ -82,7 +88,7 @@ class StickerPack:
 		# times to have saved a total of 3 stickers.
 		# However, if there are more than 3 stickers,
 		# then it will loop 0 times (add no blank stickers).
-		for i in range(max(3 - len(self.__images), 0)):
+		for i in range(max(3 - self.get_pack_size(), 0)):
 			# Add blank stickers
 			ImageUtils.create_blank_sticker()
 

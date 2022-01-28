@@ -101,8 +101,8 @@ class StickerMakerApp(QMainWindow):
 		self.__pack.add_sticker_to_pack(image)
 		# Update the UI
 		self.ImageDrop.setText('<html><head/><body>'
-		                       '<p>Drag-and-drop a file here</p>'
-		                       '<p>or paste from your Clipboard</p>'
+		                       f'<p>{self.__pack.get_pack_size()} stickers added.</p>'
+		                       '<p>Want to add more?</p>'
 		                       '</body></html>')
 
 
