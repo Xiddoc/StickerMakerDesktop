@@ -47,10 +47,6 @@ class StickerPack:
 		self.__images = []
 		# Set blank tray icon
 		self.__tray = None
-		# Default metadata
-		self.log.info("Writing default metadata")
-		self.__write_data(f"{PACK_TEMP_PATH}/{PACK_TITLE_FILE}", DEFAULT_TITLE)
-		self.__write_data(f"{PACK_TEMP_PATH}/{PACK_AUTHOR_FILE}", DEFAULT_AUTHOR)
 		# Update the file system and folders
 		try:
 			# Remove the temp directory
@@ -62,6 +58,10 @@ class StickerPack:
 		except FileExistsError:
 			# If it already exists, then ignore
 			pass
+		# Default metadata
+		self.log.info("Writing default metadata")
+		self.__write_data(f"{PACK_TEMP_PATH}/{PACK_TITLE_FILE}", DEFAULT_TITLE)
+		self.__write_data(f"{PACK_TEMP_PATH}/{PACK_AUTHOR_FILE}", DEFAULT_AUTHOR)
 
 	def add_sticker_to_pack(self, image: Image) -> None:
 		"""
