@@ -8,6 +8,8 @@ from typing import List
 
 from PIL.Image import Image
 
+from structures.Constants import TEMP_LOCATION
+
 
 class StickerPack:
 	"""
@@ -29,9 +31,9 @@ class StickerPack:
 		self.images = []
 		try:
 			# Remove the temp directory
-			rmtree("temp", ignore_errors=True)
+			rmtree(TEMP_LOCATION, ignore_errors=True)
 			# Make the temp directory
-			mkdir("temp")
+			mkdir(TEMP_LOCATION)
 		except FileExistsError:
 			# If it already exists, then ignore
 			pass

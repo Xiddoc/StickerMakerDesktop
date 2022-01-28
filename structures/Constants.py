@@ -8,3 +8,6 @@ STICKER_RES = (512, 512)
 
 # Resolution of a tray icon
 TRAY_RES = (96, 96)
+
+# Pack location
+TEMP_LOCATION = "temp"

@@ -9,7 +9,7 @@ from PIL import ImageGrab
 from PIL import Image as PILImage
 from PIL.Image import Image
 
-from structures.Constants import STICKER_RES, TRAY_RES
+from structures.Constants import STICKER_RES, TRAY_RES, TEMP_LOCATION
 
 
 class ImageUtils:
@@ -52,7 +52,7 @@ class ImageUtils:
 		# Then save to the designated location
 		image \
 			.resize(TRAY_RES, PILImage.ANTIALIAS) \
-			.save("temp/tray.png")
+			.save(f"{TEMP_LOCATION}/tray.png")
 
 	@staticmethod
 	def load_image_from_file(file_path: str) -> Image:
@@ -79,7 +79,7 @@ class ImageUtils:
 		Creates a random image name that does not exist.
 		"""
 		# Generate random file name
-		file_name: str = f"temp/{str(time()).replace('.', '')}.png"
+		file_name: str = f"{TEMP_LOCATION}/{str(time()).replace('.', '')}.png"
 		# If file exists, recurse to try again
 		if exists(file_name):
 			return cls.__get_random_file_name()
