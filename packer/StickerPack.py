@@ -2,8 +2,10 @@
 Sticker Pack class.
 """
 from os import mkdir, listdir
+from os.path import exists
 from pathlib import Path
 from shutil import rmtree
+from time import time
 
 from typing import List, Optional
 from zipfile import ZipFile
@@ -101,7 +103,7 @@ class StickerPack:
 			ImageUtils.save_to_tray(self.__tray)
 
 		# Make a new zip file on the desktop
-		with ZipFile(str(Path.home() / 'Desktop'), "w") as f:
+		with ZipFile(self.__get_zip_path(), "w") as f:
 			# For each file in the pack
 			for file in listdir(PACK_TEMP_PATH):
 				# Add it to the zip
@@ -119,3 +121,17 @@ class StickerPack:
 		# Simple write operation
 		with open(file_name, "w") as f:
 			f.write(data)
+
+	@classmethod
+	def __get_zip_path(cls) -> str:
+		"""
+		Generates a random path to save the sticker pack to.
+		Always located on the Desktop.
+		"""
+		# On the desktop
+		# Generate a random file name
+		# With the file extension .wastickers
+		file_name: str = f"{Path.home() / 'Desktop'}/{str(time()).replace('.', '')}.wastickers"
+		# If the file exists, recurse to try again
+		if exists(file_name):
+			return cls.__get_zip_path()
