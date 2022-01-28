@@ -10,7 +10,7 @@ STICKER_RES = (512, 512)
 TRAY_RES = (96, 96)
 
 # Pack location
-TEMP_LOCATION = "temp"
+PACK_TEMP_PATH = "temp"
 
 # Metadata
 PACK_TITLE_FILE = "title.txt"

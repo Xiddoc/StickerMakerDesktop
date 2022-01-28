@@ -9,7 +9,7 @@ from zipfile import ZipFile
 
 from PIL.Image import Image
 
-from structures.Constants import TEMP_LOCATION, PACK_TITLE_FILE, PACK_AUTHOR_FILE
+from structures.Constants import PACK_TEMP_PATH, PACK_TITLE_FILE, PACK_AUTHOR_FILE
 
 
 class StickerPack:
@@ -32,9 +32,9 @@ class StickerPack:
 		self.images = []
 		try:
 			# Remove the temp directory
-			rmtree(TEMP_LOCATION, ignore_errors=True)
+			rmtree(PACK_TEMP_PATH, ignore_errors=True)
 			# Make the temp directory
-			mkdir(TEMP_LOCATION)
+			mkdir(PACK_TEMP_PATH)
 		except FileExistsError:
 			# If it already exists, then ignore
 			pass
@@ -49,12 +49,12 @@ class StickerPack:
 		# If param was passed
 		if pack_title is not None:
 			# Write to pack title
-			self.__write_data(f"{TEMP_LOCATION}/{PACK_TITLE_FILE}", pack_title)
+			self.__write_data(f"{PACK_TEMP_PATH}/{PACK_TITLE_FILE}", pack_title)
 
 		# If param was passed
 		if pack_author is not None:
 			# Write to pack title
-			self.__write_data(f"{TEMP_LOCATION}/{PACK_AUTHOR_FILE}", pack_author)
+			self.__write_data(f"{PACK_TEMP_PATH}/{PACK_AUTHOR_FILE}", pack_author)
 
 	@staticmethod
 	def __write_data(file_name: str, data: str) -> None:
@@ -81,6 +81,6 @@ class StickerPack:
 		# Make a new zip file
 		with ZipFile(file_path, "w") as f:
 			# For each file in the pack
-			for file in listdir(TEMP_LOCATION):
+			for file in listdir(PACK_TEMP_PATH):
 				# Add it to the zip
-				f.write(f"{TEMP_LOCATION}/{file}")
+				f.write(f"{PACK_TEMP_PATH}/{file}")
