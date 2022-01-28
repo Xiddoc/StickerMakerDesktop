@@ -5,6 +5,7 @@ from PIL.Image import Image
 from qtpy import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QShortcut
 from PyQt5.QtGui import QDragEnterEvent, QDropEvent, QDragMoveEvent, QKeySequence
+from packer.ImageUtils import ImageUtils
 
 
 # noinspection PyUnusedFunction
@@ -30,7 +31,7 @@ class StickerMakerApp(QMainWindow):
 
 		# Initiate shortcut
 		self.PasteShortcut = QShortcut(QKeySequence("Ctrl+V"), self)
-		self.PasteShortcut.activated.connect(lambda: self.load_image())
+		self.PasteShortcut.activated.connect(lambda: self.load_image(ImageUtils.load_image_from_clipboard()))
 
 		# Show the window
 		self.show()
@@ -73,6 +74,7 @@ class StickerMakerApp(QMainWindow):
 
 		:param image: The image to add to the sticker pack.
 		"""
+		image.show()
 
 
 # Execute on direct run
