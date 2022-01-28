@@ -9,6 +9,7 @@ from zipfile import ZipFile
 
 from PIL.Image import Image
 
+from packer.ImageUtils import ImageUtils
 from structures.Constants import PACK_TEMP_PATH, PACK_TITLE_FILE, PACK_AUTHOR_FILE
 
 
@@ -61,14 +62,18 @@ class StickerPack:
 			# Write to pack title
 			self.__write_data(f"{PACK_TEMP_PATH}/{PACK_AUTHOR_FILE}", pack_author)
 
-	@staticmethod
-	def save_pack(file_path: str) -> None:
+	def save_pack(self, file_path: str) -> None:
 		"""
 		Compresses the 'temp' directory to a zip file,
 		then saves it to the specified location.
 
 		:param file_path: The save path.
 		"""
+		# Start by writing each image to the directory
+		for image in self.__images:
+			# Save sticker
+			ImageUtils.save_to_sticker(image)
+
 		# Make a new zip file
 		with ZipFile(file_path, "w") as f:
 			# For each file in the pack
