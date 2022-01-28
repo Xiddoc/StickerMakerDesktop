@@ -41,16 +41,19 @@ class StickerMakerApp(QMainWindow):
 		log.info("Loading UI")
 		uic.loadUi('stickermaker.ui', self)
 
-		# Initiate shortcut
+		# Declare shortcut callback
 		log.info("Initializing pasting shortcut")
 		self.PasteShortcut = QShortcut(QKeySequence("Ctrl+V"), self)
 		self.PasteShortcut.activated.connect(lambda: self.load_image(ImageUtils.load_image_from_clipboard()))
 
-		# Initiate shortcut
+		# Declare shortcut callback
 		log.info("Initializing quitting shortcut")
 		self.QuitShortcut = QShortcut(QKeySequence("Ctrl+W"), self)
 		# noinspection PyTypeChecker
 		self.QuitShortcut.activated.connect(self.close)
+
+		# Declare button click callback
+		self.SaveToFile.clicked.connect(self.__pack.save_pack)
 
 		# Show the window
 		log.info("Displaying window")
