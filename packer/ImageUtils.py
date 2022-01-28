@@ -3,6 +3,7 @@ Image utility functions.
 """
 from os.path import exists
 from time import time
+from typing import Optional
 
 from PIL import ImageGrab
 from PIL import Image as PILImage
@@ -64,11 +65,11 @@ class ImageUtils:
 		return PILImage.open(file_path)
 
 	@staticmethod
-	def load_image_from_clipboard() -> Image:
+	def load_image_from_clipboard() -> Optional[Image]:
 		"""
 		Wrapper for loading an image from the current Clipboard.
 
-		:return: An Image object instance.
+		:return: An Image object instance **IF THERE IS AN IMAGE ON THE CLIPBOARD**, otherwise None.
 		"""
 		return ImageGrab.grabclipboard()
 
