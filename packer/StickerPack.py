@@ -102,6 +102,15 @@ class StickerPack:
 			# Add blank stickers
 			ImageUtils.create_blank_sticker()
 
+		# Save the tray icon to the pack
+		# if there is none, then make a blank one
+		if self.__tray is None:
+			ImageUtils.create_blank_tray()
+		# Otherwise,
+		else:
+			# Save the current one as our tray
+			ImageUtils.save_to_tray(self.__tray)
+
 		# Make a new zip file
 		with ZipFile(file_path, "w") as f:
 			# For each file in the pack
