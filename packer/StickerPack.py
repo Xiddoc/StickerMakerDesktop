@@ -10,7 +10,7 @@ from zipfile import ZipFile
 from PIL.Image import Image
 
 from packer.ImageUtils import ImageUtils
-from structures.Constants import PACK_TEMP_PATH, PACK_TITLE_FILE, PACK_AUTHOR_FILE
+from structures.Constants import PACK_TEMP_PATH, PACK_TITLE_FILE, PACK_AUTHOR_FILE, DEFAULT_TITLE, DEFAULT_AUTHOR
 
 
 class StickerPack:
@@ -37,7 +37,8 @@ class StickerPack:
 		# Set blank tray icon
 		self.__tray = None
 		# Default metadata
-		self.update_metadata("_", "_")
+		self.__write_data(f"{PACK_TEMP_PATH}/{PACK_TITLE_FILE}", DEFAULT_TITLE)
+		self.__write_data(f"{PACK_TEMP_PATH}/{PACK_AUTHOR_FILE}", DEFAULT_AUTHOR)
 		# Update the file system and folders
 		try:
 			# Remove the temp directory
@@ -47,23 +48,6 @@ class StickerPack:
 		except FileExistsError:
 			# If it already exists, then ignore
 			pass
-
-	def update_metadata(self, pack_title: Optional[str] = None, pack_author: Optional[str] = None) -> None:
-		"""
-		Updates the metadata files within the sticker pack.
-
-		:param pack_title: The sticker pack title.
-		:param pack_author: The sticker pack author.
-		"""
-		# If param was passed
-		if pack_title is not None:
-			# Write to pack title
-			self.__write_data(f"{PACK_TEMP_PATH}/{PACK_TITLE_FILE}", pack_title)
-
-		# If param was passed
-		if pack_author is not None:
-			# Write to pack title
-			self.__write_data(f"{PACK_TEMP_PATH}/{PACK_AUTHOR_FILE}", pack_author)
 
 	def add_sticker_to_pack(self, image: Image) -> None:
 		"""

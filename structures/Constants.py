@@ -15,3 +15,7 @@ PACK_TEMP_PATH = "temp"
 # Metadata
 PACK_TITLE_FILE = "title.txt"
 PACK_AUTHOR_FILE = "author.txt"
+
+# Defaults
+DEFAULT_TITLE = "StickerMakerDesktop"
+DEFAULT_AUTHOR = "github.com/Xiddoc/StickerMakerDesktop"
