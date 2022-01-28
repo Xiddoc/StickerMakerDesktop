@@ -82,4 +82,3 @@ class ImageUtils:
 		# If file exists, recurse to try again
 		if exists(file_name):
 			return cls.__get_random_file_name()
-
