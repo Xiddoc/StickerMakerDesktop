@@ -2,8 +2,7 @@
 Sticker Pack class.
 """
 from os import mkdir, listdir
-from os.path import exists
-from pathlib import Path
+from os.path import exists, expanduser
 from shutil import rmtree, move
 from tempfile import gettempdir
 from time import time
@@ -106,7 +105,7 @@ class StickerPack:
 		# Save the file
 		file_path = self.save_pack_to_temp()
 		# Move the file to the desktop
-		move(file_path, f"{Path.home() / 'Desktop'}/{file_path.split('/')[-1]}")
+		move(file_path, f"{expanduser('~/Desktop')}/{file_path.split('/')[-1]}")
 
 	def save_pack_to_temp(self) -> str:
 		"""

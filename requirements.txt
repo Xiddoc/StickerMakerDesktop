@@ -1,4 +1,3 @@
 Pillow
-pathlib
 PyQt5
 QtPy
