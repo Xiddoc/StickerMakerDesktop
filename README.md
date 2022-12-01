@@ -1,6 +1,6 @@
 # StickerMakerDesktop
 
-A desktop sticker maker for... a specific chatting app! Legality of specifying the app name is questionable...
+A desktop sticker maker with a GUI for WhatsApp.
 
 ## Installation
 
